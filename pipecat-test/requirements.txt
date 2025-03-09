@@ -1,0 +1,4 @@
+pipecat-ai[daily,cartesia,openai]
+aiohttp
+python-dotenv
+loguru
