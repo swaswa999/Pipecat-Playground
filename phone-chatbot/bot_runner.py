@@ -1,32 +1,34 @@
 """
 bot_runner.py
 
-HTTP service that listens for incoming calls from either Daily or Twilio,
-provisioning a room and starting a Pipecat bot in response.
+This script creates a web service that listens for calls from Daily or Twilio,
+sets up a room, and starts a Pipecat bot.
 
-Refer to README for more information.
 """
 
-import argparse
-import os
-import subprocess
-from contextlib import asynccontextmanager
+# Import necessary modules
+import argparse  # For handling command-line arguments
+import os  # For interacting with the operating system
+import subprocess  # For running other programs
+from contextlib import asynccontextmanager  # For managing async context
 
-import aiohttp
-from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, Request
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, PlainTextResponse
-from twilio.twiml.voice_response import VoiceResponse
+import aiohttp  # For making HTTP requests asynchronously
+from dotenv import load_dotenv  # For loading environment variables from a .env file
+from fastapi import FastAPI, HTTPException, Request  # For creating the web service
+from fastapi.middleware.cors import CORSMiddleware  # For handling cross-origin requests
+from fastapi.responses import JSONResponse, PlainTextResponse  # For sending responses
+from twilio.twiml.voice_response import VoiceResponse  # For creating Twilio voice responses
 
+# Import classes for working with the Daily API
 from pipecat.transports.services.helpers.daily_rest import (
-    DailyRESTHelper,
-    DailyRoomObject,
-    DailyRoomParams,
-    DailyRoomProperties,
-    DailyRoomSipParams,
+    DailyRESTHelper,  # Helper for Daily API
+    DailyRoomObject,  # Represents a Daily room
+    DailyRoomParams,  # Parameters for a Daily room
+    DailyRoomProperties,  # Properties of a Daily room
+    DailyRoomSipParams,  # SIP parameters for a Daily room
 )
 
+# Load environment variables from a .env file
 load_dotenv(override=True)
 
 

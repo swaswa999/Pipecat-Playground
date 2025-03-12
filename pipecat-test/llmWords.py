@@ -45,7 +45,7 @@ async def main():
         messages = [
             {
                 "role": "system",
-                "content": "You are an LLM in a WebRTC session, and this is a 'hello world' demo. Say hello to the world.",
+                "content": "You are an LLM and this is a 'hello world' demo. Say hello to the world.",
             }
         ]
 
